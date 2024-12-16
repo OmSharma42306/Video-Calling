@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Camera, Mic, MicOff, Video, VideoOff, PhoneOff, Phone } from 'lucide-react';
 
-
+const wsUrl = import.meta.env.VITE_WEBSOCKET_URL;
 export function Receiver() {
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [isVideoReceived, setIsVideoReceived] = useState(false);
@@ -17,7 +17,7 @@ export function Receiver() {
     }
   
     useEffect(() => {
-      const socket = new WebSocket('ws://localhost:8080');
+      const socket = new WebSocket(wsUrl);
       setSocket(socket);
   
       const pc = new RTCPeerConnection({

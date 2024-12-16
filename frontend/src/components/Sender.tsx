@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Camera, Mic, MicOff, Video, VideoOff, PhoneOff, Phone } from 'lucide-react';
 
+const wsUrl = import.meta.env.VITE_WEBSOCKET_URL;
 export function Sender() {
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [isVideoEnabled, setIsVideoEnabled] = useState(false);
@@ -9,7 +10,9 @@ export function Sender() {
     const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
   
     useEffect(() => {
-      const newSocket = new WebSocket("ws://localhost:8080");
+      //const newSocket = new WebSocket("ws://localhost:8080");
+      const newSocket = new WebSocket(wsUrl);
+      
       
       newSocket.onopen = () => {
         newSocket.send(JSON.stringify({type: 'sender'}));
